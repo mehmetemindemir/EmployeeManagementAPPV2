@@ -1,0 +1,12 @@
+[ {
+  "employee" : {
+    "name" : "EMP-1",
+    "department" : "DEP-01",
+    "hourlyRate" : 40.0,
+    "yearlySalary" : 83200.0
+  },
+  "bonus" : 12.0,
+  "overtimeHours" : 12.0,
+  "tax" : 16786.4,
+  "netPay" : 67145.6
+} ]

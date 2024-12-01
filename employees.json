@@ -1,0 +1,6 @@
+[ {
+  "name" : "EMP-1",
+  "department" : "DEP-01",
+  "hourlyRate" : 40.0,
+  "yearlySalary" : 83200.0
+} ]
