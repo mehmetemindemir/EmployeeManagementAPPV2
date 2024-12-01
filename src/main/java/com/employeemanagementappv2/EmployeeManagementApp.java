@@ -1,8 +1,6 @@
 package com.employeemanagementappv2;
 
-import com.employeemanagementappv2.data.Department;
-import com.employeemanagementappv2.data.Employee;
-import com.employeemanagementappv2.data.Payroll;
+import com.employeemanagementappv2.data.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,14 +24,12 @@ import java.util.Map;
 
 public class EmployeeManagementApp extends Application {
 
-    // A simple way to store user credentials (username, password)
     private static final Map<String, String> users = new HashMap<>();
     private static final String EMPLOYEE_DATA_FILE = "employees.json";
     private static final String DEPARTMENT_DATA_FILE = "departments.json";
     private static final String PAYROLL_DATA_FILE = "payrolls.json";
-
+    Alert alert=null;
     static {
-        // Adding a sample user: username "admin", password "password"
         users.put("admin", "123");
     }
     private boolean authenticate(String username, String password) {
@@ -41,7 +37,7 @@ public class EmployeeManagementApp extends Application {
     }
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("HR Management System - Login");
+        primaryStage.setTitle("Employee Management System - Login");
         primaryStage.setResizable(false);
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -68,7 +64,7 @@ public class EmployeeManagementApp extends Application {
             String password = passwordField.getText();
 
             if (username.length() < 3 || password.length() < 3) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Validation Error");
                 alert.setHeaderText(null);
                 alert.setContentText("Username and password must be at least 3 characters long.");
@@ -77,7 +73,7 @@ public class EmployeeManagementApp extends Application {
                 System.out.println("Login successful!");
                 showMainScreen(primaryStage);
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Failed");
                 alert.setHeaderText(null);
                 alert.setContentText("Invalid credentials! Please try again.");
@@ -97,7 +93,7 @@ public class EmployeeManagementApp extends Application {
 
 
     private void showMainScreen(Stage primaryStage) {
-        primaryStage.setTitle("HR Management System");
+        primaryStage.setTitle("Employee Management System");
 
         TabPane tabPane = new TabPane();
 
@@ -488,7 +484,7 @@ public class EmployeeManagementApp extends Application {
                 }
             }catch (NumberFormatException ex) {
                 System.out.println("Invalid input. Please enter valid numbers for bonus and overtime hours.");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid input");
                 alert.setContentText("Please enter valid numbers for bonus and overtime hours.");
@@ -588,7 +584,7 @@ public class EmployeeManagementApp extends Application {
                 updatePayrollStage.close();
             } catch (NumberFormatException ex) {
                 System.out.println("Invalid input. Please enter valid numbers for bonus and overtime hours.");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid input");
                 alert.setContentText("Please enter valid numbers for bonus and overtime hours.");
@@ -610,11 +606,12 @@ public class EmployeeManagementApp extends Application {
                 return mapper.readValue(file, new TypeReference<List<Employee>>() {});
             }
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error loading employees");
             alert.setContentText("Please try again later."+e.getMessage());
             alert.showAndWait();
+            System.out.println(e.getMessage());
 
         }
         return FXCollections.observableArrayList();
@@ -624,7 +621,7 @@ public class EmployeeManagementApp extends Application {
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(EMPLOYEE_DATA_FILE), employees);
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error saving employees");
             alert.setContentText("Please try again later."+e.getMessage());
@@ -640,7 +637,7 @@ public class EmployeeManagementApp extends Application {
                 return mapper.readValue(file, new TypeReference<List<Department>>() {});
             }
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error loading departments");
             alert.setContentText("Please try again later."+e.getMessage());
@@ -655,8 +652,8 @@ public class EmployeeManagementApp extends Application {
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(DEPARTMENT_DATA_FILE), departments);
         } catch (IOException e) {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Error");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
             alert.setHeaderText("Error saving departments");
             alert.setContentText("Please try again later."+e.getMessage());
             alert.showAndWait();
@@ -671,7 +668,7 @@ public class EmployeeManagementApp extends Application {
                 return mapper.readValue(file, new TypeReference<List<Payroll>>() {});
             }
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error loading payrolls");
             alert.setContentText("Please try again later."+e.getMessage());
@@ -686,8 +683,8 @@ public class EmployeeManagementApp extends Application {
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(PAYROLL_DATA_FILE), payrolls);
         } catch (IOException e) {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Error");
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
             alert.setHeaderText("Error saving payrolls");
             alert.setContentText("Please try again later."+e.getMessage());
             alert.showAndWait();
